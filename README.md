@@ -1,4 +1,9 @@
-## Welcome to GitHub Pages
+## Welcome to AI
+
+
+- [Linear Regression](./models/linear-regression/1-intro.md)
+
+
 
 You can use the [editor on GitHub](https://github.com/Mazzanicolas/AI/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
