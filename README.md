@@ -2,6 +2,6 @@
 
 ## Linear Models
 
-- [Linear Regression](./models/linear-regression/1-intro.md)
+- [Linear Regression](./models/linear-regression/linear-regression.md)
 - [Polinomial Regression](./models/)
 

@@ -10,12 +10,30 @@ The linear equation
 
 ![Linear Regression equation](https://latex.codecogs.com/gif.latex?y%20%3D%20%5Cbeta%20_%7B1%7D%20x%20&plus;%20%5Cbeta%20_%7B0%7D)
 
+## Training (fitting) a linear model
+
+### Simple Linear Model
+
+With a simple linear regression (a single input) we can use statistics to estimate the coefficients.
+
+![Beta1](https://latex.codecogs.com/gif.latex?%5Cbeta%20_%7B1%7D%20%3D%20%5Cfrac%7B%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%28x_%7Bi%7D%20-%20mean%28x%29%29*%28y_%7Bi%7D%20-%20mean%28y%29%29%20%7D%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%28x_%7Bi%7D%20-%20mean%28x%29%29%5E%7B2%7D%7D)
+
+![Beta0](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B0%7D%20%3D%20mean%28y%29%20-%20%5Cbeta_%7B1%7D*mean%28x%29)
+
 ## Pros vs Cons
 
 | Pros | Cons |
 |:-----|:-----|
 | Simple | Can only handle numeric values |
-| | Input data needs a linear relationship | 
+| Interpretable | Input data needs a linear relationship | 
+
+## Considerations
+
+ - Linear Asumption
+ - Remove Noise
+ - Remove Collinearity
+ - Gaussian Distributions
+ - Rescale Inputs
 
 ## Simple Linear Regression Python & Sklearn
 
@@ -71,6 +89,7 @@ print('β1: {0} \nβ0: {1}\n'.format(slope, intercept))
 
 ![Simple Linear Regression](https://latex.codecogs.com/gif.latex?y%20%3D%201.8895269148719305*x%20&plus;%209.492638158328134)
 
+Making predictions
 
 ```python
 sns.scatterplot(x, y)
@@ -82,6 +101,7 @@ sns.despine(trim=True)
 plt.show()
 ```
 
+With the slope **β1** and the intercept **β0** we can plot how well the model fit the data
 
 ![png](./images/output_9_0.png)
 
