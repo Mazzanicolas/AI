@@ -67,9 +67,6 @@ plt.show()
 ![png](./images/output_3_0.png)
 
 
-Simple linear regression equation
-
-![Simple Linear Regression](https://latex.codecogs.com/gif.latex?y%20%3D%20%5Cbeta%20_%7B1%7D*x%20&plus;%20%5Cbeta%20_%7B0%7D)
 
 Creating and fitting a model
 
@@ -138,8 +135,9 @@ plt.show()
 ![png](./images/output_11_0.png)
 
 
+## Case of Study
 
-
+[Breast Cancer Wisconsin](./https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Prognostic%29)
 
 ## References & More Information
 
