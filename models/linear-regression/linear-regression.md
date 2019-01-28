@@ -51,7 +51,7 @@ Let's create some sample data
 
 
 ```python
-_ = np.linspace(1, 100, 50) 
+_ = np.linspace(1, 100, 50)
 x = _ + np.random.normal(0, 7, 50)
 y = _*2 + 2
 
@@ -137,7 +137,312 @@ plt.show()
 
 ## Case of Study
 
-[Breast Cancer Wisconsin](./https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Prognostic%29)
+This time we're going to use [Graduate Admissions Data Set](https://www.kaggle.com/mohansacharya/graduate-admissions/home).
+
+### Data Set Information
+
+This dataset is created for prediction of Graduate Admissions from an Indian perspective.
+
+The dataset contains several parameters which are considered important during the application for Masters Programs. 
+
+The parameters included are :
+|||
+|-|-|
+| GRE Scores | out of 340 |
+| TOEFL Scores | out of 120 | 
+| University Rating | out of 5 | 
+| Statement of Purpose and Letter of Recommendation Strength | out of 5 | 
+| Undergraduate GPA | out of 10 | 
+| Research Experience | either 0 or 1 | 
+| Chance of Admit | ranging from 0 to 1 | 
+
+### Simple Linear Regression Python
+
+
+```python
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import missingno as msn
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+```
+
+
+```python
+dataset = pd.read_csv('Admission_Predict.csv')
+```
+
+
+```python
+dataset.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Serial No.</th>
+      <th>GRE Score</th>
+      <th>TOEFL Score</th>
+      <th>University Rating</th>
+      <th>SOP</th>
+      <th>LOR</th>
+      <th>CGPA</th>
+      <th>Research</th>
+      <th>Chance of Admit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>337</td>
+      <td>118</td>
+      <td>4</td>
+      <td>4.5</td>
+      <td>4.5</td>
+      <td>9.65</td>
+      <td>1</td>
+      <td>0.92</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>324</td>
+      <td>107</td>
+      <td>4</td>
+      <td>4.0</td>
+      <td>4.5</td>
+      <td>8.87</td>
+      <td>1</td>
+      <td>0.76</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>316</td>
+      <td>104</td>
+      <td>3</td>
+      <td>3.0</td>
+      <td>3.5</td>
+      <td>8.00</td>
+      <td>1</td>
+      <td>0.72</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>322</td>
+      <td>110</td>
+      <td>3</td>
+      <td>3.5</td>
+      <td>2.5</td>
+      <td>8.67</td>
+      <td>1</td>
+      <td>0.80</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>314</td>
+      <td>103</td>
+      <td>2</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>8.21</td>
+      <td>0</td>
+      <td>0.65</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Let's get rid of the **Serial No.**, it doesn't have useful information.
+
+
+```python
+dataset = dataset.drop(['Serial No.'], axis=1)
+```
+
+Now we're going to check for missing values
+
+
+```python
+msn.matrix(dataset)
+plt.show()
+```
+
+
+![png](./images/output_6_0.png)
+
+
+All bars are complete, this means that all columns have an assigned value. If there is a missing value, it must be a non-numeric character (we know this from the dataset information, it only contains numerical values).
+
+
+```python
+dataset.info()
+```
+
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 400 entries, 0 to 399
+    Data columns (total 8 columns):
+    GRE Score            400 non-null int64
+    TOEFL Score          400 non-null int64
+    University Rating    400 non-null int64
+    SOP                  400 non-null float64
+    LOR                  400 non-null float64
+    CGPA                 400 non-null float64
+    Research             400 non-null int64
+    Chance of Admit      400 non-null float64
+    dtypes: float64(4), int64(4)
+    memory usage: 25.1 KB
+
+
+We need only one dependent variable for a Simple Linear Regression, for that we are going to keep the variable with the highest correlation to the output variable (Chance of Admit).
+
+
+```python
+plt.matshow(dataset.corr())
+plt.xticks(range(len(dataset.columns)), dataset.columns, rotation='vertical')
+plt.yticks(range(len(dataset.columns)), dataset.columns)
+plt.colorbar()
+plt.show()
+```
+
+
+![png](./images/output_10_0.png)
+
+
+The next step is to check if theres a linear relationship between CGPA and Chance of Admit.
+
+**Note:** *this is a must in Linear Regression problems*
+
+
+```python
+sns.scatterplot(dataset['CGPA'], dataset['Chance of Admit '])
+sns.despine(trim=True)
+plt.show()
+```
+
+
+![png](./images/output_12_0.png)
+
+
+Now we need to check for outliers.
+
+> Chance of Admit shoud be between [0, 1]
+
+> CGPA should be in { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
+
+![CGPA](https://qph.fs.quoracdn.net/main-qimg-dd7d28869daded5bbd7661de9c2415e0.webp)
+
+
+```python
+dataset['CGPA'].describe()
+```
+
+
+
+
+    count    400.000000
+    mean       8.598925
+    std        0.596317
+    min        6.800000
+    25%        8.170000
+    50%        8.610000
+    75%        9.062500
+    max        9.920000
+    Name: CGPA, dtype: float64
+
+
+
+
+```python
+dataset['Chance of Admit '].describe()
+```
+
+
+
+
+    count    400.000000
+    mean       0.724350
+    std        0.142609
+    min        0.340000
+    25%        0.640000
+    50%        0.730000
+    75%        0.830000
+    max        0.970000
+    Name: Chance of Admit , dtype: float64
+
+
+
+In this dataset we don't have outliers. Now let's train a Linear Regression model to predict the Chance of admit based on CGPA score.
+
+
+```python
+linear_model = LinearRegression()
+predictor = linear_model.fit(dataset['CGPA'].values.reshape(-1,1), dataset['Chance of Admit '].values.reshape(-1,1))
+slope = predictor.coef_[0][0]
+intercept = predictor.intercept_[0]
+print('β1: {0} \nβ0: {1}\n'.format(slope, intercept))
+```
+
+    β1: 0.2088472295006913 
+    β0: -1.0715116629342316
+    
+
+
+Now we're going to predict the chance of admit with a CGPA of 9.99
+
+
+```python
+sample = 9.9
+
+prediction = predictor.predict(np.array(sample).reshape(-1,1))
+
+sns.scatterplot(dataset['CGPA'], dataset['Chance of Admit '])
+plt.scatter(sample, prediction, c='r')
+plt.plot(np.arange(6,11,1), np.arange(6,11,1)*slope + intercept, 'r-')
+plt.title('Prediction')
+plt.xlabel('X')
+plt.ylabel('Y')
+sns.despine(trim=True)
+plt.show()
+
+
+print('Chance of admit for CGPA {0} is {1}%'.format(sample, prediction[0][0]*100))
+```
+
+
+![png](./images/output_19_0.png)
+
+
+    Chance of admit for CGPA 9.9 is 99.60759091226122%
+
+
+We can see that this model fits well with the data.
+
+
 
 ## References & More Information
 
