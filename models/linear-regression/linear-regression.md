@@ -146,6 +146,7 @@ This dataset is created for prediction of Graduate Admissions from an Indian per
 The dataset contains several parameters which are considered important during the application for Masters Programs. 
 
 The parameters included are :
+
 |||
 |-|-|
 | GRE Scores | out of 340 |
