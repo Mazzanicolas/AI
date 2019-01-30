@@ -4,21 +4,37 @@ Linear regression is a linear approach to modelling the relationship between a d
 
 ## Model Representation
 
-Linear regression is a simple equation that takes **only** numeric values.
+Linear regression is a simple equation that takes **only** numeric values as input.
 
-The linear equation
+<h3> Simple Linear Regression </h3>
+
+The linear equation for a simple linear regression:
 
 ![Linear Regression equation](https://latex.codecogs.com/gif.latex?y%20%3D%20%5Cbeta%20_%7B1%7D%20x%20&plus;%20%5Cbeta%20_%7B0%7D)
 
+<h3> Multiple Linear Regression </h3>
+
+The linear equation for multiple linear regression:
+
+![Multiple Linear Regression equation](https://latex.codecogs.com/gif.latex?y%20%3D%20%5Cbeta%20_%7B1%7Dx_%7B1%7D%20&plus;%20%5Cbeta%20_%7B2%7Dx_%7B2%7D%20%5C%20...%20%5C%20%5Cbeta%20_%7Bn%7Dx_%7Bn%7D%20&plus;%20%5Cbeta%20_%7B0%7D)
+
+Where **n** is the number of attributes.
+
+*(Example) Multiple linear regression for 2 independent variables (attributes):*
+
+![Example](https://latex.codecogs.com/gif.latex?y%20%3D%20%5Cbeta%20_%7B1%7Dx_%7B1%7D%20&plus;%20%5Cbeta%20_%7B2%7Dx_%7B2%7D%20&plus;%20%5Cbeta%20_%7B0%7D)
+
 ## Training (fitting) a linear model
 
-### Simple Linear Model
+<h3> Simple Linear Model </h3>
 
 With a simple linear regression (a single input) we can use statistics to estimate the coefficients.
 
 ![Beta1](https://latex.codecogs.com/gif.latex?%5Cbeta%20_%7B1%7D%20%3D%20%5Cfrac%7B%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%28x_%7Bi%7D%20-%20mean%28x%29%29*%28y_%7Bi%7D%20-%20mean%28y%29%29%20%7D%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%28x_%7Bi%7D%20-%20mean%28x%29%29%5E%7B2%7D%7D)
 
 ![Beta0](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B0%7D%20%3D%20mean%28y%29%20-%20%5Cbeta_%7B1%7D*mean%28x%29)
+
+<h3> Multiple Linear Regression </h3>
 
 ## Pros vs Cons
 
@@ -27,7 +43,7 @@ With a simple linear regression (a single input) we can use statistics to estima
 | Simple | Can only handle numeric values |
 | Interpretable | Input data needs a linear relationship | 
 
-## Considerations
+## Data preparation
 
  - Linear Asumption
  - Remove Noise
@@ -35,9 +51,16 @@ With a simple linear regression (a single input) we can use statistics to estima
  - Gaussian Distributions
  - Rescale Inputs
 
+## Considerations
+
+* In higher dimensions when we have more than one input, the line is called a plane or a hyper-plane.
+* A ![](https://latex.codecogs.com/gif.latex?%5Cbeta_%7Bi%7D) value of 0 removes the influence of that attribute.
+
+
+
 ## Simple Linear Regression Python & Sklearn
 
-importing libraries
+Importing libraries
 
 
 ```python
@@ -137,7 +160,7 @@ plt.show()
 
 ## Case of Study
 
-This time we're going to use [Graduate Admissions Data Set](https://www.kaggle.com/mohansacharya/graduate-admissions/home).
+This time we're going to use [Graduate Admissions Data Set](https://www.kaggle.com/mohansacharya/graduate-admissions/home) to predict the chance of admit.
 
 ### Data Set Information
 
@@ -145,7 +168,7 @@ This dataset is created for prediction of Graduate Admissions from an Indian per
 
 The dataset contains several parameters which are considered important during the application for Masters Programs. 
 
-The parameters included are :
+The parameters included are:
 
 |||
 |-|-|
@@ -178,8 +201,6 @@ dataset = pd.read_csv('Admission_Predict.csv')
 ```python
 dataset.head()
 ```
-
-
 
 
 <div>
@@ -353,7 +374,7 @@ Now we need to check for outliers.
 
 > Chance of Admit shoud be between [0, 1]
 
-> CGPA should be in { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
+> CGPA should be between [0, 10]
 
 ![CGPA](https://qph.fs.quoracdn.net/main-qimg-dd7d28869daded5bbd7661de9c2415e0.webp)
 
