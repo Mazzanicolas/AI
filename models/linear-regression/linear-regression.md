@@ -14,11 +14,25 @@ The linear equation for a simple linear regression:
 
 <h3> Multiple Linear Regression </h3>
 
+When dealing with multiple independent variables we need to use different methods to fit the model.
+
+The calculation of B1 can be re-written as:
+
+![Beta1](https://latex.codecogs.com/gif.latex?%5Cbeta%20_%7B1%7D%20%3D%20corr%28x%2Cy%29*%20%5Cfrac%7Bstdev%28y%29%7D%7Bstdev%28x%29%7D)
+
+* *corr(x, y) is the correlation between x and y (Pearson's correlation coefficient)*
+* *stdev() is the standar deviation of the variable* 
+
 The linear equation for multiple linear regression:
 
 ![Multiple Linear Regression equation](https://latex.codecogs.com/gif.latex?y%20%3D%20%5Cbeta%20_%7B1%7Dx_%7B1%7D%20&plus;%20%5Cbeta%20_%7B2%7Dx_%7B2%7D%20%5C%20...%20%5C%20%5Cbeta%20_%7Bn%7Dx_%7Bn%7D%20&plus;%20%5Cbeta%20_%7B0%7D)
 
 Where **n** is the number of attributes.
+
+Matrix representation (faster for computations):
+
+![Multiple Linear Regression equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20y%20_%7B0%7D%20%5C%5C%20y%20_%7B1%7D%20%5C%5C%20y%20_%7B2%7D%20%5C%5C%20...%20%5C%5C%20y%20_%7Bn%7D%20%5Cend%7Bbmatrix%7D%20%3D%20%5Cbegin%7Bbmatrix%7D%201%20%5C%20x_%7B11%7D%20%5C%20x_%7B12%7D%20%5C%20...%20%5C%20%5C%20x_%7B1n%7D%20%5C%20%5C%20%5C%5C%201%20%5C%20x_%7B21%7D%20%5C%20x_%7B22%7D%20%5C%20...%20%5C%20%5C%20x_%7B2n%7D%20%5C%20%5C%20%5C%5C%20...%20%5C%5C%201%20%5C%20x_%7Bm1%7D%20%5C%20x_%7Bm2%7D%20%5C%20...%20%5C%20%5C%20x_%7Bmn%7D%20%5Cend%7Bbmatrix%7D%20%5Cbegin%7Bbmatrix%7D%20%5Cbeta%20_%7B0%7D%20%5C%5C%20%5Cbeta%20_%7B1%7D%20%5C%5C%20%5Cbeta%20_%7B2%7D%20%5C%5C%20...%20%5C%5C%20%5Cbeta%20_%7Bn%7D%20%5Cend%7Bbmatrix%7D%20%5C%20%5C%20%5C%20%5C%20%5Cequiv%20%5C%20%5C%20%5C%20y%20%3D%20X%5Cbeta)
+
 
 *(Example) Multiple linear regression for 2 independent variables (attributes):*
 
@@ -35,6 +49,12 @@ With a simple linear regression (a single input) we can use statistics to estima
 ![Beta0](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B0%7D%20%3D%20mean%28y%29%20-%20%5Cbeta_%7B1%7D*mean%28x%29)
 
 <h3> Multiple Linear Regression </h3>
+
+<h4>Ordinary Least Squares</h4>
+
+<h3> Multivariate Linear Regression </h3>
+
+There are also regression models with two or more response variables. These models are usually called Multivariate Regression Models.
 
 ## Pros vs Cons
 
@@ -55,8 +75,6 @@ With a simple linear regression (a single input) we can use statistics to estima
 
 * In higher dimensions when we have more than one input, the line is called a plane or a hyper-plane.
 * A ![](https://latex.codecogs.com/gif.latex?%5Cbeta_%7Bi%7D) value of 0 removes the influence of that attribute.
-
-
 
 ## Simple Linear Regression Python & Sklearn
 
@@ -452,14 +470,14 @@ sns.despine(trim=True)
 plt.show()
 
 
-print('Chance of admit for CGPA {0} is {1}%'.format(sample, prediction[0][0]*100))
+print('Chance of admit for CGPA {0} is {1} %'.format(sample, prediction[0][0]*100))
 ```
 
 
 ![png](./images/output_19_0.png)
 
 
-    Chance of admit for CGPA 9.9 is 99.60759091226122%
+    Chance of admit for CGPA 9.9 is 99.60759091226122 %
 
 
 We can see that this model fits well with the data.
@@ -469,3 +487,4 @@ We can see that this model fits well with the data.
 ## References & More Information
 
 [Master Machine Learning Algorithms](https://machinelearningmastery.com/) (Chapter 10 - Linear Regression)
+[YALE](http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm)
