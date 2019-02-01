@@ -93,7 +93,7 @@ where ![](https://latex.codecogs.com/gif.latex?%5Chat%7By%7D) is the predicted v
 
 Let's continue with the example:
 
-In the step 2 we got ![equation](https://latex.codecogs.com/gif.latex?%5Chat%7By%7D%20%3D%200) and we know that with a value of ![equation](https://latex.codecogs.com/gif.latex?x%20%3D%201) then ![equation](https://latex.codecogs.com/gif.latex?y%20%3D%202).
+In the step 2 we got ![equation](https://latex.codecogs.com/gif.latex?%5Chat%7By%7D%20%3D%200) and we know that with a value of ![equation](https://latex.codecogs.com/gif.latex?x%20%3D%201) then ![equation](https://latex.codecogs.com/gif.latex?y%20%3D%202) (values from the table).
 
 Now we can calculate the error:
 
@@ -102,6 +102,26 @@ Now we can calculate the error:
 ![equation](https://latex.codecogs.com/gif.latex?error%20%3D%20-2)
 
 4 - Update the ![Equation](https://latex.codecogs.com/gif.latex?%5Cbeta%20_%7B0%7D%2C%20%5C%20%5Cbeta_%7B1%7D%2C%20...%20%5C%20%5Cbeta_%7Bn%7D) values with the calculated error.
+
+Updating ![B0](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B0%7D):
+
+![equation](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B0%7D%28t&plus;1%29%3D%5Cbeta_%7B0%7D%28t%29%20&plus;%5Calpha*error)
+
+![alpha](https://latex.codecogs.com/gif.latex?%5Calpha_) is a small value we set, in this case we're going to use ![equation](https://latex.codecogs.com/gif.latex?%5Calpha%20%3D%200.01).
+
+![equation](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B0%7D%28t&plus;1%29%3D%200%20-%200.1*%28-2%29)
+
+![equation](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B0%7D%28t&plus;1%29%3D%200.02)
+
+Now, let’s look at updating the value for ![B1](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B1%7D).
+
+![equation](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B1%7D%28t&plus;1%29%3D%5Cbeta_%7B1%7D%28t%29-%5Calpha%20*error*x)
+
+![equation](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B1%7D%28t&plus;1%29%3D0-0.01%20*-2*1)
+
+![equation](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B1%7D%28t&plus;1%29%3D0.02)
+
+5 - Repeat from step 2 for the other rows in the dataset.
 
 <h3> Multivariate Linear Regression </h3>
 
