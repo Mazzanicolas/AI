@@ -12,16 +12,10 @@ The linear equation for a simple linear regression:
 
 ![Linear Regression equation](https://latex.codecogs.com/gif.latex?y%20%3D%20%5Cbeta%20_%7B1%7D%20x%20&plus;%20%5Cbeta%20_%7B0%7D)
 
+
 <h3> Multiple Linear Regression </h3>
 
 When dealing with multiple independent variables we need to use different methods to fit the model.
-
-The calculation of B1 can be re-written as:
-
-![Beta1](https://latex.codecogs.com/gif.latex?%5Cbeta%20_%7B1%7D%20%3D%20corr%28x%2Cy%29*%20%5Cfrac%7Bstdev%28y%29%7D%7Bstdev%28x%29%7D)
-
-* *corr(x, y) is the correlation between x and y (Pearson's correlation coefficient)*
-* *stdev() is the standar deviation of the variable* 
 
 The linear equation for multiple linear regression:
 
@@ -31,7 +25,7 @@ Where **n** is the number of attributes.
 
 Matrix representation (faster for computations):
 
-![Multiple Linear Regression equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20y%20_%7B0%7D%20%5C%5C%20y%20_%7B1%7D%20%5C%5C%20y%20_%7B2%7D%20%5C%5C%20...%20%5C%5C%20y%20_%7Bn%7D%20%5Cend%7Bbmatrix%7D%20%3D%20%5Cbegin%7Bbmatrix%7D%201%20%5C%20x_%7B11%7D%20%5C%20x_%7B12%7D%20%5C%20...%20%5C%20%5C%20x_%7B1n%7D%20%5C%20%5C%20%5C%5C%201%20%5C%20x_%7B21%7D%20%5C%20x_%7B22%7D%20%5C%20...%20%5C%20%5C%20x_%7B2n%7D%20%5C%20%5C%20%5C%5C%20...%20%5C%5C%201%20%5C%20x_%7Bm1%7D%20%5C%20x_%7Bm2%7D%20%5C%20...%20%5C%20%5C%20x_%7Bmn%7D%20%5Cend%7Bbmatrix%7D%20%5Cbegin%7Bbmatrix%7D%20%5Cbeta%20_%7B0%7D%20%5C%5C%20%5Cbeta%20_%7B1%7D%20%5C%5C%20%5Cbeta%20_%7B2%7D%20%5C%5C%20...%20%5C%5C%20%5Cbeta%20_%7Bn%7D%20%5Cend%7Bbmatrix%7D%20%5C%20%5C%20%5C%20%5C%20%5Cequiv%20%5C%20%5C%20%5C%20y%20%3D%20X%5Cbeta)
+![Multiple Linear Regression equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20y%20_%7B0%7D%20%5C%5C%20y%20_%7B1%7D%20%5C%5C%20y%20_%7B2%7D%20%5C%5C%20\vdots%20%5C%5C%20y%20_%7Bn%7D%20%5Cend%7Bbmatrix%7D%20%3D%20%5Cbegin%7Bbmatrix%7D%201%20%5C%20x_%7B11%7D%20%5C%20x_%7B12%7D%20%5C%20...%20%5C%20%5C%20x_%7B1n%7D%20%5C%20%5C%20%5C%5C%201%20%5C%20x_%7B21%7D%20%5C%20x_%7B22%7D%20%5C%20...%20%5C%20%5C%20x_%7B2n%7D%20%5C%20%5C%20%5C%5C%20\vdots%20%5C%5C%201%20%5C%20x_%7Bm1%7D%20%5C%20x_%7Bm2%7D%20%5C%20...%20%5C%20%5C%20x_%7Bmn%7D%20%5Cend%7Bbmatrix%7D%20%5Cbegin%7Bbmatrix%7D%20%5Cbeta%20_%7B0%7D%20%5C%5C%20%5Cbeta%20_%7B1%7D%20%5C%5C%20%5Cbeta%20_%7B2%7D%20%5C%5C%20\vdots%20%5C%5C%20%5Cbeta%20_%7Bn%7D%20%5Cend%7Bbmatrix%7D%20%5C%20%5C%20%5C%20%5C%20%5Cequiv%20%5C%20%5C%20%5C%20y%20%3D%20X%5Cbeta)
 
 
 *(Example) Multiple linear regression for 2 independent variables (attributes):*
@@ -48,15 +42,72 @@ With a simple linear regression (a single input) we can use statistics to estima
 
 ![Beta0](https://latex.codecogs.com/gif.latex?%5Cbeta_%7B0%7D%20%3D%20mean%28y%29%20-%20%5Cbeta_%7B1%7D*mean%28x%29)
 
+The calculation of B1 can be re-written as:
+
+![Beta1](https://latex.codecogs.com/gif.latex?%5Cbeta%20_%7B1%7D%20%3D%20corr%28x%2Cy%29*%20%5Cfrac%7Bstdev%28y%29%7D%7Bstdev%28x%29%7D)
+
+* ***corr(x, y)** is the correlation between x and y (Pearson's correlation coefficient).*
+* ***stdev()** is the standar deviation of the variable.* 
+
+This method is called Ordinary Least Square and will only work for a univariate dataset which is single independent variables and single dependent variables.
+
 <h3> Multiple Linear Regression </h3>
 
-<h4>Ordinary Least Squares</h4>
+When there are one or more inputs you can use a process of optimizing the values of the coefficients by iteratively minimizing the error of the model on your training data.
+
+* Stochastic Gradient Descent
+
+The coefficients used in simple linear regression can be found using stochastic gradient descent. The sum of the squared errors are calculated for each pair of input and output values. A learning rate is used as a scale factor and the coefficients are updated in the direction towards minimizing the error. The process is repeated until a minimum sum squared error is achieved or no further improvement is possible. When using this method, you must select a learning rate (alpha) parameter that determines the size of the improvement step to take on each iteration of the procedure. 
+
+1 - Assign ![Equation](https://latex.codecogs.com/gif.latex?%5Cbeta%20_%7B0%7D%2C%20%5C%20%5Cbeta_%7B1%7D%2C%20...%20%5C%20%5Cbeta_%7Bn%7D) small values (close to 0 or 0).
+
+![equation](https://latex.codecogs.com/gif.latex?%5Cbeta%20_%7B0%7D%20%3D%200%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5C%20%5Cbeta%20_%7B1%7D%20%3D%200)
+
+The equation would be as follows:
+
+![equation](https://latex.codecogs.com/gif.latex?y%20%3D%200%20&plus;%200x)
+
+2 - Predict ![y](https://latex.codecogs.com/gif.latex?y) using a row of attributes from the dataset.
+
+This can be done by substituting the values ​​of the row in the previous equation. Let's use this data as an example.
+
+|![x](https://latex.codecogs.com/gif.latex?x)|![y](https://latex.codecogs.com/gif.latex?y)|
+|-|-|
+|1|2|
+|2|4|
+|3|6|
+
+We're using ![prediction](https://latex.codecogs.com/gif.latex?%5Chat%7By%7D) to denote the difference between the prediction and the real value.
+
+![equation](https://latex.codecogs.com/gif.latex?%5Chat%7By%7D%20%3D%200&plus;0*1)
+
+![equation](https://latex.codecogs.com/gif.latex?%5Chat%7By%7D%20%3D%200)
+
+Note that we don't use the value of ![y](https://latex.codecogs.com/gif.latex?y), we save it to calculate the error after.
+
+3 - Calculate the error as follows:
+
+![equation](https://latex.codecogs.com/gif.latex?error%3D%5Chat%7By%7D-y)
+
+where ![](https://latex.codecogs.com/gif.latex?%5Chat%7By%7D) is the predicted value and ![y](https://latex.codecogs.com/gif.latex?y) is the real value.
+
+Let's continue with the example:
+
+In the step 2 we got ![equation](https://latex.codecogs.com/gif.latex?%5Chat%7By%7D%20%3D%200) and we know that with a value of ![equation](https://latex.codecogs.com/gif.latex?x%20%3D%201) then ![equation](https://latex.codecogs.com/gif.latex?y%20%3D%202).
+
+Now we can calculate the error:
+
+![equation](https://latex.codecogs.com/gif.latex?error%20%3D%200-2)
+
+![equation](https://latex.codecogs.com/gif.latex?error%20%3D%20-2)
+
+4 - Update the ![Equation](https://latex.codecogs.com/gif.latex?%5Cbeta%20_%7B0%7D%2C%20%5C%20%5Cbeta_%7B1%7D%2C%20...%20%5C%20%5Cbeta_%7Bn%7D) values with the calculated error.
 
 <h3> Multivariate Linear Regression </h3>
 
 There are also regression models with two or more response variables. These models are usually called Multivariate Regression Models.
 
-## Pros vs Cons
+## Linear Regression Pros vs Cons
 
 | Pros | Cons |
 |:-----|:-----|
@@ -122,7 +173,6 @@ print('β1: {0} \nβ0: {1}\n'.format(slope, intercept))
 
     β1: 1.8895269148719305 
     β0: 9.492638158328134
-    
 
 
 ![Simple Linear Regression](https://latex.codecogs.com/gif.latex?y%20%3D%201.8895269148719305*x%20&plus;%209.492638158328134)
@@ -487,4 +537,7 @@ We can see that this model fits well with the data.
 ## References & More Information
 
 [Master Machine Learning Algorithms](https://machinelearningmastery.com/) (Chapter 10 - Linear Regression)
+
+[Towards Data Science](https://towardsdatascience.com/linear-regression-simplified-ordinary-least-square-vs-gradient-descent-48145de2cf76)
+
 [YALE](http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm)
